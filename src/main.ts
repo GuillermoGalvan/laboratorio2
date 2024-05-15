@@ -6,6 +6,7 @@ type Order = {
   customerEmail: string;
   email: string;
   phone: string;
+  track: "pending" | "processed" | "failed";
 };
 
 interface IVerify<T> {
@@ -89,8 +90,9 @@ class PaymentService implements IProcessPayment {
     if (!this.verifyInventory(order)) {
       throw new Error("Payment failed");
     }
-
+    order.track = "pending";
     this.continueProcess(order);
+    order.track = "processed";
     this.oderDBManager.update(order);
     this.notify(order);
   }
