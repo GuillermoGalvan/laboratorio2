@@ -103,7 +103,9 @@ class PaymentService implements IProcessPayment {
     this.notificationService.forEach((service) => service.send(order));
   }
 
-  protected continueProcess(order: Order): void {}
+  protected continueProcess(order: Order): void {
+    this.oderDBManager.insert(order);
+  }
 }
 
 class ProcessStandardPayment extends PaymentService implements IProcessPayment {
@@ -119,6 +121,7 @@ class ProcessStandardPayment extends PaymentService implements IProcessPayment {
   }
   override continueProcess(order: Order): void {
     this.processPayment(order.amount);
+    this.oderDBManager.insert(order);
   }
 
   processPayment(amount: number): void {}
@@ -129,13 +132,14 @@ class ProcessExpressPayment extends PaymentService implements IProcessPayment {
   constructor(priority: string) {
     super(
       [new InventoryService(100), new PhonevarificationService()],
-      [new EmailNotificationService()]
+      [new SMSNotificationService()]
     );
     this.priority = priority;
   }
 
   override continueProcess(order: Order): void {
     this.processPayment(order.amount, this.priority);
+    this.oderDBManager.insert(order);
   }
 
   protected processPayment(amount: number, priority: any): void {}
