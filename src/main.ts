@@ -64,13 +64,13 @@ class InventoryService implements IVerify<Order> {
 
 class EmailVarificationService implements IVerify<Order> {
   verify(data: Order): boolean {
-    throw new Error("Method not implemented.");
+    return data.email !== "" && data.customerEmail !== "";
   }
 }
 
 class PhonevarificationService implements IVerify<Order> {
   verify(data: Order): boolean {
-    throw new Error("Method not implemented.");
+    return data.phone !== "";
   }
 }
 
