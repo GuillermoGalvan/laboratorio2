@@ -28,7 +28,9 @@ interface INotifyOrder {
   send(order: Order): void;
 }
 
-class OderDBManager implements IInsert<Order>, IUpdate<Order> {
+interface IOderDBManager extends IInsert<Order>, IUpdate<Order> {}
+
+class OderDBManager implements IOderDBManager {
   update(entity: Order): void {
     throw new Error("Method not implemented.");
   }
@@ -78,7 +80,7 @@ class PhonevarificationService implements IVerify<Order> {
 class PaymentService implements IProcessPayment {
   protected verify: IVerify<Order>[];
   protected readonly notificationService: INotifyOrder[];
-  protected readonly oderDBManager: OderDBManager;
+  protected readonly oderDBManager: IOderDBManager;
 
   constructor(verify: IVerify<Order>[], notificationService: INotifyOrder[]) {
     this.notificationService = notificationService;
