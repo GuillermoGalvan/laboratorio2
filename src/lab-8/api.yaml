@@ -1,0 +1,693 @@
+openapi: 3.0.1
+info:
+  title: API Transversal
+  description: |
+    API Ecoomerce
+  version: 1.0.0
+servers:
+- url: https://dev.domain.services/v1
+  description: Development server
+security:
+- bearerAuth: []
+tags:
+- name: User
+  description: Intraccion con usuarios.
+- name: Order
+  description: Intraccion con ordenes.
+- name: Customer
+  description: Interaccion con clientes.
+paths:
+
+  /users:
+    get:
+      tags:
+        - User
+      summary: |
+        Obtiene la lista de usuarios
+      description: obtine las listas de usuarios activos 
+      responses:
+        "200":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+        - User
+      summary: |
+        Crea un usuario
+      description: Crea un usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersRequest'
+      responses:
+        "201":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+ 
+  /users/{id}:
+    get:
+      tags:
+        - User
+      summary: |
+        Obtiene un usuario por ID
+      description: obtiene un usuario por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+        - User
+      summary: |
+        Actualiza un usuario por ID
+      description: Actualiza un usuario por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersRequest'
+      responses:
+        "200":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+        - User
+      summary: |
+        Elimina un usuario por ID
+      description: Elimina un usuario por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success.
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+
+  /orders:
+    get:
+      tags:
+        - Order
+      summary: |
+        Obtiene la lista de ordenes
+      description: obtine las listas de ordenes activas 
+      responses:
+        "200":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdersResponse'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+        - Order
+      summary: |
+        Crea una orden
+      description: Crea una orden
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        "201":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+
+  /orders/{id}:
+    get:
+      tags:
+        - Order
+      summary: |
+        Obtiene una orden por ID
+      description: obtiene una orden por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la orden
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+        - Order
+      summary: |
+        Actualiza una orden por ID
+      description: Actualiza una orden por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la orden
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        "200":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+        - Order
+      summary: |
+        Elimina una orden por ID
+      description: Elimina una orden por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la orden
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success.
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+
+  /customers:
+    get:
+      tags:
+        - Customer
+      summary: |
+        Obtiene la lista de clientes
+      description: obtine las listas de clientes activos 
+      responses:
+        "200":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomersResponse'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+        - Customer
+      summary: |
+        Crea un cliente
+      description: Crea un cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        "201":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+
+  /customers/{id}:
+    get:
+      tags:
+        - Customer
+      summary: |
+        Obtiene un cliente por ID
+      description: obtiene un cliente por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+        - Customer
+      summary: |
+        Actualiza un cliente por ID
+      description: Actualiza un cliente por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        "200":
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+        - Customer
+      summary: |
+        Elimina un cliente por ID
+      description: Elimina un cliente por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success.
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - bearerAuth: []
+
+components:
+  schemas:
+    Rolls:
+      type: string
+      enum:
+        - Administrador
+        - Contador
+        - Repartidor
+        - Gerente
+    Users:
+      type: object
+      properties:
+        id:
+          type: string
+          description: User ID
+          example: 51503c92-1e16-46b3-8b0c-a81939d7ffb5
+        name:
+          type: string
+          description: User name.
+          example: luis fernando aranda
+        type:
+          type: string
+          description: Roll user
+          example: Administrador 
+          items:
+            $ref: '#/components/schemas/Rolls'
+    UsersRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: User name.
+          example: luis fernando aranda
+        type:
+          type: string
+          description: Roll user
+          example: Administrador 
+          items:
+            $ref: '#/components/schemas/Rolls'
+    UsersResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Users'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+        status_code:
+          type: integer
+        message:
+          type: string
+        user_message:
+          type: string
+        code:
+          type: string
+        trace_id:
+          type: string
+        digital_trace_id:
+          type: string
+    OrderRequest:
+      type: object
+      properties:
+        user_id:
+          type: string
+          description: User ID
+          example: 51503c92-1e16-46b3-8b0c-a81939d7ffb5
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Products'
+    Products:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Product ID
+          example: 51503c92-1e16-46b3-8b0c-a81939d7ffb5
+        name:
+          type: string
+          description: Product name.
+          example: luis fernando aranda
+        price:
+          type: number
+          description: Product price
+          example: 100.00
+    OrderResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Order ID
+          example: 51503c92-1e16-46b3-8b0c-a81939d7ffb5
+        user_id:
+          type: string
+          description: User ID
+          example: 51503c92-1e16-46b3-8b0c-a81939d7ffb5
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Products'
+        total:
+          type: number
+          description: Total price
+          example: 100.00
+    OrdersResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/OrderResponse'
+    CustomerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Customer name.
+          example: luis fernando aranda
+        email:
+          type: string
+          description: Customer email.
+          example:
+    CustomersResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/CustomerResponse'
+    CustomerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Customer ID
+          example: 51503c92-1e16-46b3-8b0c-a81939d7ffb5
+        name:
+          type: string
+          description: Customer name.
+          example: luis fernando aranda
+        email:
+          type: string
+          description: Customer email.
+          example:
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
