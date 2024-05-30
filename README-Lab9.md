@@ -31,10 +31,11 @@ Durante las migraciones de cada modulo se tiene que contemplar que los llamados 
 
 ```mermaid
 graph TD;
-    Apigee-->User Management;
-    Apigee-->Product Catalog;
-    Product Catalog-->Order Processing
-    Order Processing-->Product Catalog
-    Apigee-->Order Processing;
-    Apigee-->Customer Support
+    Apigee-->User_Management;
+    Apigee-->Product_Catalog;
+    Order_Processing-->Product_Catalog
+    Apigee-->Order_Processing
+    Apigee-->Customer_Support
+    Customer_Support-->Order_Processing
 ```
+
