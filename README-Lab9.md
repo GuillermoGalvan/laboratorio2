@@ -16,10 +16,25 @@ The platform has been experiencing challenges with scaling during high-traffic p
 
 # Solucion
 
+Se propone ir sacando los 4 grandes modulos a microservicios, cada microservicio con su propia base de datos, la comunicacion entre los microservicios seria por medio de eventos en aquellos microservicios que tengan depencias (Product Catalog, Order Processing), para aquellos que tengan que tener información en tiempo real se la comunicación se tendra que hacer por medio de llamados https.
+
+El primero modulo a convertir microservicios seria el de User Management, este
+modulo tendra todo lo relacionado al manejo de los usuarios dentro del sitema otorgando el la autentificación y la autorización al mismo.
+
+El segundo modulo a convertir seria el de Customer Support, este modulo tendra su propia base de datos para el manejo del soporte e inicialmente se conectara a la base de datos centralizada, hasta que todos los microservicios esten migrados y esa base de datos deje de utilzarse.
+
+El tercer modulo a convetir es el de Product Catalog, cuando se pase a microservicio este modulo tendra que tener ciertas precauciones por que puede que se vea afectado el modulo Order Processing por la dependencia que existe entre ellos.
+
+El cuarto microservicio seria Order Processing, en la migracion de este microservicio se tendra que tambien volver a realizar ajustes al microservicio Customer Support para que deje de utilizar la base de datos centralizada y empiece haber llamados entre los microservios mediante el protocolo https.
+
+Durante las migraciones de cada modulo se tiene que contemplar que los llamados que se hacian por sp u clases seran sustituidos por llamados https, y estos despues de realizar todas las migraciones a eventos si fueran el caso.
+
 ```mermaid
 graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+    Apigee-->User Management;
+    Apigee-->Product Catalog;
+    Product Catalog-->Order Processing
+    Order Processing-->Product Catalog
+    Apigee-->Order Processing;
+    Apigee-->Customer Support
 ```
