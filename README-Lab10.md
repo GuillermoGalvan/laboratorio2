@@ -82,6 +82,8 @@ public List<int> ProcessData(List<int> data) {
 
 ```
 
+### Solucion
+
 Se puede mejorar de varias maneras, pero la forma en la que yo lo haria seria con un switch y utilizando un tipo de colleccion diferente para el rendimiento optimo.
 
 ```csharp
